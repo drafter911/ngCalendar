@@ -7,7 +7,7 @@ myApp.directive("ngcalendar", function() {
             selected: "="
         },
         link: function($scope) {
-            console.log($scope);
+            //console.log($scope);
         //    //scope.selected = _removeTime(scope.selected || moment());
         //    scope.month = scope.selected.clone();
         //
