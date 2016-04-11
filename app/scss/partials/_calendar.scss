@@ -30,6 +30,9 @@ body {
   color: $white;
   background: $blue;
   cursor: pointer;
+  &:hover {
+    background: lighten($blue, 10);
+  }
 }
 
 .calendar-title {
@@ -50,6 +53,21 @@ body {
     height: 40px;
     line-height: 40px;
     cursor: pointer;
+    &:hover {
+      color: $white;
+      background: lighten($blue, 40);
+    }
+    &.active {
+      &:hover {
+        background: lighten($yellow, 20);
+        color: $blue;
+      }
+    }
+    &.current-day {
+      &:hover {
+        background: lighten($blue, 10);
+      }
+    }
   }
 }
 

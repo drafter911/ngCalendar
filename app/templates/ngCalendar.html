@@ -11,11 +11,12 @@
     <div ng-repeat="row in month track by $index" class="clear-fix">
         <div class="day pull-left" ng-repeat="col in row track by $index">
             <span class="block"
+                  isolate
                   ng-click="setSelected(col)"
                   ng-class="{
               'gray-bg' : col === ' ',
               'current-day' : highLightCurrentDay(col),
-              'active' :col === isActive || checkIfWasActive(col)
+              'active' : isActive || checkIfWasActive(col)
               }">{{col}}
         </span>
         </div>

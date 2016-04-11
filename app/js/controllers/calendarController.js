@@ -21,19 +21,16 @@ myApp.controller("calendarController", function ($scope) {
     ];
     $scope.weekDaysNames = ['mon', 'tue', 'wen', 'the', 'fri', 'sat', 'sun'];
     $scope.daysInMonthsList = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-    $scope.isActive = null;
 
     $scope.checkIfWasActive = function(day) {
-        return localStorage.getItem(JSON.stringify(day.toString() + $scope.currentMonth.toString() + $scope.currentYear.toString()));
+        return localStorage.getItem(toLocalData(day));
     };
 
     $scope.setSelected = function (day) {
         if(!($scope.currentMonth < new Date().getMonth() || $scope.currentYear < new Date().getFullYear() || day < new Date().getDate())){
-            $scope.isActive = day;
-            localStorage.setItem(JSON.stringify(day.toString() + $scope.currentMonth.toString() + $scope.currentYear.toString()),
-                JSON.stringify(day.toString() + $scope.currentMonth.toString() + $scope.currentYear.toString()));
+            localStorage.setItem(toLocalData(day), JSON.stringify(toLocalData(day)));
+            return false;
         }
-
     };
 
     $scope.highLightCurrentDay = function (day) {
@@ -62,11 +59,9 @@ myApp.controller("calendarController", function ($scope) {
     }
 
     function generateMonth(date) {
-        console.log($scope.currentMonth < new Date().getMonth());
         var i = 1,
             daysCount = $scope.daysInMonthsList[date.getMonth()];
 
-        $scope.isActive = null;
         $scope.currentMonth = date.getMonth();
         $scope.currentYear = date.getFullYear();
 
@@ -105,5 +100,9 @@ myApp.controller("calendarController", function ($scope) {
 
     function leapYear(year) {
         return ((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0);
+    }
+
+    function toLocalData(day) {
+       return JSON.stringify(day.toString() + $scope.currentMonth.toString() + $scope.currentYear.toString());
     }
 });
