@@ -1,41 +1,64 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-span {
-  float: left;
-  border: 1px solid #ccc;
-  width: 30px;
-  height: 30px;
-  margin: 1px;
-  line-height: 30px;
-  padding: 4px;
-  text-align: center;
+body {
+  font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial, sans-serif;
 }
-.bold {
-  font-weight: bold;
+
+.app-title {
+  padding-bottom: 30px;
 }
+
 .calendar {
-  width: 295px;
-  margin: 0 auto;
-}
-.calendar-days {
-  margin-bottom: 10px;
-}
-
-.current-day {
-  background: blue;
-  color: white;
-}
-.gray-bg {
-  /*background: #ccc;*/
-  border-color: transparent;
-}
-.active {
-  color: blue;
-  background: yellow;
+  max-width: 640px;
+  margin-top: 50px;
 }
 
 .calendar-header {
-  display: inline-block;
-  width: 150px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid $gray;
+}
+
+.calendar-control {
+  width: 60px;
+  border-radius: 3px;
+  border: none;
+  line-height: 30px;
+  color: $white;
+  background: $blue;
+  cursor: pointer;
+}
+
+.calendar-title {
+  width: calc(100% - 120px);
+  line-height: 30px;
+}
+
+.day, .calendar-day-name {
+  width: calc(100% /7);
+  line-height: 30px;
   text-align: center;
-  margin: 0;
+}
+
+.day {
+  height: 44px;
+  padding: 2px 3px;
+  span {
+    height: 40px;
+    line-height: 40px;
+    cursor: pointer;
+  }
+}
+
+.current-day {
+  color: $white;
+  background: $blue;
+}
+
+.active {
+  color: blue;
+  background: yellow;
 }

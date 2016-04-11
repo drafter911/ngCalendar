@@ -1,20 +1,23 @@
-<p style="text-align: center">Calendar view</p>
-<div class="calendar">
-    <div class="clear-fix">
-        <button class="pull-left" ng-click="getPrevMonth()">Prev</button>
-        <p class="calendar-header bold">{{getMonthName()}} {{currentYear}}</p>
-        <button class="pull-right" ng-click="getNextMonth()">Next</button>
+<div class="calendar center-block">
+    <h3 class="app-title text-center">Calendar</h3>
+    <div class="calendar-header clear-fix">
+        <button class="calendar-control pull-left" ng-click="getPrevMonth()">Prev</button>
+        <p class="calendar-title pull-left text-center">{{currentYear}} {{getMonthName()}}</p>
+        <button class="calendar-control pull-left" ng-click="getNextMonth()">Next</button>
     </div>
     <div class="calendar-days clear-fix">
-        <span class="bold" ng-repeat="dayName in weekDaysNames">{{dayName}}</span>
+        <span class="calendar-day-name pull-left bold" ng-repeat="dayName in weekDaysNames">{{dayName}}</span>
     </div>
     <div ng-repeat="row in month track by $index" class="clear-fix">
-        <span ng-repeat="col in row track by $index"
-              ng-click="setSelected(col)"
-              ng-class="{
+        <div class="day pull-left" ng-repeat="col in row track by $index">
+            <span class="block"
+                  ng-click="setSelected(col)"
+                  ng-class="{
               'gray-bg' : col === ' ',
               'current-day' : highLightCurrentDay(col),
-              'active' :col === isActive
-              }">{{col}}</span>
+              'active' :col === isActive || checkIfWasActive(col)
+              }">{{col}}
+        </span>
+        </div>
     </div>
 </div>

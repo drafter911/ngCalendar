@@ -1,6 +1,6 @@
 myApp.controller("calendarController", function ($scope) {
     $scope.date = new Date();
-    $scope.firstDayOfMonth = getFirstDayOfMonth($scope);
+    $scope.firstDayOfMonth = getFirstDayOfMonth();
     $scope.month = [];
     $scope.currentMonth = 0;
     $scope.currentYear = 1970;
@@ -23,8 +23,17 @@ myApp.controller("calendarController", function ($scope) {
     $scope.daysInMonthsList = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     $scope.isActive = null;
 
-    $scope.setSelected = function (isActive) {
-        $scope.isActive = isActive;
+    $scope.checkIfWasActive = function(day) {
+        return localStorage.getItem(JSON.stringify(day.toString() + $scope.currentMonth.toString() + $scope.currentYear.toString()));
+    };
+
+    $scope.setSelected = function (day) {
+        if(!($scope.currentMonth < new Date().getMonth() || $scope.currentYear < new Date().getFullYear() || day < new Date().getDate())){
+            $scope.isActive = day;
+            localStorage.setItem(JSON.stringify(day.toString() + $scope.currentMonth.toString() + $scope.currentYear.toString()),
+                JSON.stringify(day.toString() + $scope.currentMonth.toString() + $scope.currentYear.toString()));
+        }
+
     };
 
     $scope.highLightCurrentDay = function (day) {
@@ -38,8 +47,6 @@ myApp.controller("calendarController", function ($scope) {
     };
 
     $scope.getPrevMonth = function () {
-        console.log($scope.date.getFullYear() % 4);
-        console.log($scope.daysInMonthsList);
         generateMonth(new Date($scope.date.setMonth($scope.date.getMonth() - 1)));
     };
     $scope.getNextMonth = function () {
@@ -48,13 +55,14 @@ myApp.controller("calendarController", function ($scope) {
 
 
     function getFirstDayOfMonth() {
-        var oneDay = 3600000 * 24;
-        var time = $scope.date.getTime();
-        var firstDay = time - oneDay * ($scope.date.getDate() - 1);
-        return new Date(firstDay).getDay();
+        var oneDay = 3600000 * 24,
+            time = $scope.date.getTime(),
+            firstDay = time - oneDay * ($scope.date.getDate() - 1);
+        return new Date(firstDay).getUTCDay();
     }
 
     function generateMonth(date) {
+        console.log($scope.currentMonth < new Date().getMonth());
         var i = 1,
             daysCount = $scope.daysInMonthsList[date.getMonth()];
 
@@ -69,7 +77,7 @@ myApp.controller("calendarController", function ($scope) {
             $scope.month[week] = [];
             for (var day = 0; day < 7; day++) {
                 if (week === 0) {
-                    if (day < getFirstDayOfMonth()-1) {
+                    if (day < getFirstDayOfMonth()) {
                         $scope.month[week][day] = ' ';
                     } else {
                         $scope.month[week][day] = i;

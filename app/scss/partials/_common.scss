@@ -11,3 +11,19 @@
     clear: both;
   }
 }
+.block {
+  display: block;
+}
+.center-block {
+  margin: 0 auto;
+}
+.bold {
+  font-weight: bold;
+}
+.text-center {
+  text-align: center;
+}
+
+.white {
+  color: $white;
+}
